@@ -15,7 +15,7 @@ export function SiteFooter() {
     <footer className="mt-16 border-t border-border">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <Logo />
+          <Logo complet />
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
             Le réseau numérique du football local béninois. Les données affichées sont fictives et
             servent uniquement à la démonstration.

@@ -9,10 +9,10 @@ const tournoiLabels: Record<StatutTournoi, string> = {
 };
 
 const tournoiStyles: Record<StatutTournoi, string> = {
-  inscriptions: "bg-success/15 text-success border-success/30",
-  bientot: "bg-warning/15 text-warning border-warning/30",
-  en_cours: "bg-primary/15 text-primary border-primary/30",
-  termine: "bg-muted text-muted-foreground border-border",
+  inscriptions: "bg-success/15 text-success border-success/40",
+  bientot: "bg-warning/15 text-warning border-warning/40",
+  en_cours: "bg-success/15 text-success border-success/40",
+  termine: "bg-destructive/15 text-destructive border-destructive/40",
 };
 
 const matchLabels: Record<StatutMatch, string> = {
@@ -22,8 +22,8 @@ const matchLabels: Record<StatutMatch, string> = {
 };
 
 const matchStyles: Record<StatutMatch, string> = {
-  a_venir: "bg-secondary/20 text-foreground border-secondary/40",
-  en_cours: "bg-primary/15 text-primary border-primary/30",
+  a_venir: "bg-warning/15 text-warning border-warning/40",
+  en_cours: "bg-success/15 text-success border-success/40",
   termine: "bg-muted text-muted-foreground border-border",
 };
 
