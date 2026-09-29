@@ -13,7 +13,7 @@ export function Avatar({ nom, className }: { nom: string; className?: string }) 
     <span
       aria-hidden="true"
       className={cn(
-        "grid size-12 shrink-0 place-items-center rounded-full bg-secondary/25 text-sm font-semibold",
+        "grid size-12 shrink-0 place-items-center rounded-full bg-primary/20 text-sm font-semibold",
         className,
       )}
     >
@@ -25,7 +25,7 @@ export function Avatar({ nom, className }: { nom: string; className?: string }) 
 export function StatCard({ valeur, label }: { valeur: string; label: string }) {
   return (
     <div className="glass rounded-2xl p-5">
-      <div className="font-display text-3xl text-primary sm:text-4xl">{valeur}</div>
+      <div className="font-display text-3xl text-accent sm:text-4xl">{valeur}</div>
       <div className="mt-1 text-sm text-muted-foreground">{label}</div>
     </div>
   );
