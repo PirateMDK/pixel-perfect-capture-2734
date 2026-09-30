@@ -14,6 +14,10 @@ import { Route as EquipesIndexRouteImport } from './routes/equipes.index'
 import { Route as EquipesTeamIdRouteImport } from './routes/equipes.$teamId'
 import { Route as JoueursIndexRouteImport } from './routes/joueurs.index'
 import { Route as JoueursPlayerIdRouteImport } from './routes/joueurs.$playerId'
+import { Route as MatchsIndexRouteImport } from './routes/matchs.index'
+import { Route as MatchsMatchIdRouteImport } from './routes/matchs.$matchId'
+import { Route as TournoisIndexRouteImport } from './routes/tournois.index'
+import { Route as TournoisTournamentIdRouteImport } from './routes/tournois.$tournamentId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,50 +44,107 @@ const JoueursPlayerIdRoute = JoueursPlayerIdRouteImport.update({
   path: '/joueurs/$playerId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatchsIndexRoute = MatchsIndexRouteImport.update({
+  id: '/matchs/',
+  path: '/matchs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchsMatchIdRoute = MatchsMatchIdRouteImport.update({
+  id: '/matchs/$matchId',
+  path: '/matchs/$matchId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TournoisIndexRoute = TournoisIndexRouteImport.update({
+  id: '/tournois/',
+  path: '/tournois/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TournoisTournamentIdRoute = TournoisTournamentIdRouteImport.update({
+  id: '/tournois/$tournamentId',
+  path: '/tournois/$tournamentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/equipes/$teamId': typeof EquipesTeamIdRoute
   '/joueurs/$playerId': typeof JoueursPlayerIdRoute
+  '/matchs/$matchId': typeof MatchsMatchIdRoute
+  '/tournois/$tournamentId': typeof TournoisTournamentIdRoute
   '/equipes/': typeof EquipesIndexRoute
   '/joueurs/': typeof JoueursIndexRoute
+  '/matchs/': typeof MatchsIndexRoute
+  '/tournois/': typeof TournoisIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/equipes/$teamId': typeof EquipesTeamIdRoute
   '/joueurs/$playerId': typeof JoueursPlayerIdRoute
+  '/matchs/$matchId': typeof MatchsMatchIdRoute
+  '/tournois/$tournamentId': typeof TournoisTournamentIdRoute
   '/equipes': typeof EquipesIndexRoute
   '/joueurs': typeof JoueursIndexRoute
+  '/matchs': typeof MatchsIndexRoute
+  '/tournois': typeof TournoisIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/equipes/$teamId': typeof EquipesTeamIdRoute
   '/joueurs/$playerId': typeof JoueursPlayerIdRoute
+  '/matchs/$matchId': typeof MatchsMatchIdRoute
+  '/tournois/$tournamentId': typeof TournoisTournamentIdRoute
   '/equipes/': typeof EquipesIndexRoute
   '/joueurs/': typeof JoueursIndexRoute
+  '/matchs/': typeof MatchsIndexRoute
+  '/tournois/': typeof TournoisIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/equipes/$teamId' | '/joueurs/$playerId' | '/equipes/' | '/joueurs/'
+    | '/'
+    | '/equipes/$teamId'
+    | '/joueurs/$playerId'
+    | '/matchs/$matchId'
+    | '/tournois/$tournamentId'
+    | '/equipes/'
+    | '/joueurs/'
+    | '/matchs/'
+    | '/tournois/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/equipes/$teamId' | '/joueurs/$playerId' | '/equipes' | '/joueurs'
+  to:
+    | '/'
+    | '/equipes/$teamId'
+    | '/joueurs/$playerId'
+    | '/matchs/$matchId'
+    | '/tournois/$tournamentId'
+    | '/equipes'
+    | '/joueurs'
+    | '/matchs'
+    | '/tournois'
   id:
     | '__root__'
     | '/'
     | '/equipes/$teamId'
     | '/joueurs/$playerId'
+    | '/matchs/$matchId'
+    | '/tournois/$tournamentId'
     | '/equipes/'
     | '/joueurs/'
+    | '/matchs/'
+    | '/tournois/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EquipesTeamIdRoute: typeof EquipesTeamIdRoute
   JoueursPlayerIdRoute: typeof JoueursPlayerIdRoute
+  MatchsMatchIdRoute: typeof MatchsMatchIdRoute
+  TournoisTournamentIdRoute: typeof TournoisTournamentIdRoute
   EquipesIndexRoute: typeof EquipesIndexRoute
   JoueursIndexRoute: typeof JoueursIndexRoute
+  MatchsIndexRoute: typeof MatchsIndexRoute
+  TournoisIndexRoute: typeof TournoisIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -123,6 +184,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JoueursPlayerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matchs/': {
+      id: '/matchs/'
+      path: '/matchs'
+      fullPath: '/matchs/'
+      preLoaderRoute: typeof MatchsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matchs/$matchId': {
+      id: '/matchs/$matchId'
+      path: '/matchs/$matchId'
+      fullPath: '/matchs/$matchId'
+      preLoaderRoute: typeof MatchsMatchIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tournois/': {
+      id: '/tournois/'
+      path: '/tournois'
+      fullPath: '/tournois/'
+      preLoaderRoute: typeof TournoisIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tournois/$tournamentId': {
+      id: '/tournois/$tournamentId'
+      path: '/tournois/$tournamentId'
+      fullPath: '/tournois/$tournamentId'
+      preLoaderRoute: typeof TournoisTournamentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -130,8 +219,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EquipesTeamIdRoute: EquipesTeamIdRoute,
   JoueursPlayerIdRoute: JoueursPlayerIdRoute,
+  MatchsMatchIdRoute: MatchsMatchIdRoute,
+  TournoisTournamentIdRoute: TournoisTournamentIdRoute,
   EquipesIndexRoute: EquipesIndexRoute,
   JoueursIndexRoute: JoueursIndexRoute,
+  MatchsIndexRoute: MatchsIndexRoute,
+  TournoisIndexRoute: TournoisIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
