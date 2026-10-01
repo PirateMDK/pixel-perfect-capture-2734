@@ -11,6 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActualitesRouteImport } from './routes/actualites'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as EspaceEquipeRouteImport } from './routes/espace-equipe'
+import { Route as EspaceOrganisateurRouteImport } from './routes/espace-organisateur'
+import { Route as EspaceRecruteurRouteImport } from './routes/espace-recruteur'
+import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as RechercheRouteImport } from './routes/recherche'
 import { Route as StatistiquesRouteImport } from './routes/statistiques'
 import { Route as TalentsRouteImport } from './routes/talents'
@@ -31,6 +37,36 @@ const IndexRoute = IndexRouteImport.update({
 const ActualitesRoute = ActualitesRouteImport.update({
   id: '/actualites',
   path: '/actualites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EspaceEquipeRoute = EspaceEquipeRouteImport.update({
+  id: '/espace-equipe',
+  path: '/espace-equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EspaceOrganisateurRoute = EspaceOrganisateurRouteImport.update({
+  id: '/espace-organisateur',
+  path: '/espace-organisateur',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EspaceRecruteurRoute = EspaceRecruteurRouteImport.update({
+  id: '/espace-recruteur',
+  path: '/espace-recruteur',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InscriptionRoute = InscriptionRouteImport.update({
+  id: '/inscription',
+  path: '/inscription',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RechercheRoute = RechercheRouteImport.update({
@@ -92,6 +128,12 @@ const TournoisTournamentIdRoute = TournoisTournamentIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRoute
+  '/admin': typeof AdminRoute
+  '/connexion': typeof ConnexionRoute
+  '/espace-equipe': typeof EspaceEquipeRoute
+  '/espace-organisateur': typeof EspaceOrganisateurRoute
+  '/espace-recruteur': typeof EspaceRecruteurRoute
+  '/inscription': typeof InscriptionRoute
   '/recherche': typeof RechercheRoute
   '/statistiques': typeof StatistiquesRoute
   '/talents': typeof TalentsRoute
@@ -107,6 +149,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRoute
+  '/admin': typeof AdminRoute
+  '/connexion': typeof ConnexionRoute
+  '/espace-equipe': typeof EspaceEquipeRoute
+  '/espace-organisateur': typeof EspaceOrganisateurRoute
+  '/espace-recruteur': typeof EspaceRecruteurRoute
+  '/inscription': typeof InscriptionRoute
   '/recherche': typeof RechercheRoute
   '/statistiques': typeof StatistiquesRoute
   '/talents': typeof TalentsRoute
@@ -123,6 +171,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRoute
+  '/admin': typeof AdminRoute
+  '/connexion': typeof ConnexionRoute
+  '/espace-equipe': typeof EspaceEquipeRoute
+  '/espace-organisateur': typeof EspaceOrganisateurRoute
+  '/espace-recruteur': typeof EspaceRecruteurRoute
+  '/inscription': typeof InscriptionRoute
   '/recherche': typeof RechercheRoute
   '/statistiques': typeof StatistiquesRoute
   '/talents': typeof TalentsRoute
@@ -140,6 +194,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/actualites'
+    | '/admin'
+    | '/connexion'
+    | '/espace-equipe'
+    | '/espace-organisateur'
+    | '/espace-recruteur'
+    | '/inscription'
     | '/recherche'
     | '/statistiques'
     | '/talents'
@@ -155,6 +215,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/actualites'
+    | '/admin'
+    | '/connexion'
+    | '/espace-equipe'
+    | '/espace-organisateur'
+    | '/espace-recruteur'
+    | '/inscription'
     | '/recherche'
     | '/statistiques'
     | '/talents'
@@ -170,6 +236,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/actualites'
+    | '/admin'
+    | '/connexion'
+    | '/espace-equipe'
+    | '/espace-organisateur'
+    | '/espace-recruteur'
+    | '/inscription'
     | '/recherche'
     | '/statistiques'
     | '/talents'
@@ -186,6 +258,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActualitesRoute: typeof ActualitesRoute
+  AdminRoute: typeof AdminRoute
+  ConnexionRoute: typeof ConnexionRoute
+  EspaceEquipeRoute: typeof EspaceEquipeRoute
+  EspaceOrganisateurRoute: typeof EspaceOrganisateurRoute
+  EspaceRecruteurRoute: typeof EspaceRecruteurRoute
+  InscriptionRoute: typeof InscriptionRoute
   RechercheRoute: typeof RechercheRoute
   StatistiquesRoute: typeof StatistiquesRoute
   TalentsRoute: typeof TalentsRoute
@@ -213,6 +291,48 @@ declare module '@tanstack/react-router' {
       path: '/actualites'
       fullPath: '/actualites'
       preLoaderRoute: typeof ActualitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/espace-equipe': {
+      id: '/espace-equipe'
+      path: '/espace-equipe'
+      fullPath: '/espace-equipe'
+      preLoaderRoute: typeof EspaceEquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/espace-organisateur': {
+      id: '/espace-organisateur'
+      path: '/espace-organisateur'
+      fullPath: '/espace-organisateur'
+      preLoaderRoute: typeof EspaceOrganisateurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/espace-recruteur': {
+      id: '/espace-recruteur'
+      path: '/espace-recruteur'
+      fullPath: '/espace-recruteur'
+      preLoaderRoute: typeof EspaceRecruteurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inscription': {
+      id: '/inscription'
+      path: '/inscription'
+      fullPath: '/inscription'
+      preLoaderRoute: typeof InscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/recherche': {
@@ -298,6 +418,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActualitesRoute: ActualitesRoute,
+  AdminRoute: AdminRoute,
+  ConnexionRoute: ConnexionRoute,
+  EspaceEquipeRoute: EspaceEquipeRoute,
+  EspaceOrganisateurRoute: EspaceOrganisateurRoute,
+  EspaceRecruteurRoute: EspaceRecruteurRoute,
+  InscriptionRoute: InscriptionRoute,
   RechercheRoute: RechercheRoute,
   StatistiquesRoute: StatistiquesRoute,
   TalentsRoute: TalentsRoute,
