@@ -64,7 +64,7 @@ export function TeamCard({ team }: { team: Team }) {
   );
 }
 
-export function PlayerCard({ player, teamNom }: { player: Player; teamNom?: string }) {
+export function PlayerCard({ player, teamNom }: { player: Player; teamNom?: string | undefined }) {
   return (
     <Link
       to="/joueurs/$playerId"

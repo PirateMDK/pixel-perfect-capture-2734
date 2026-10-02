@@ -38,7 +38,7 @@ const ONGLETS = ["Présentation", "Équipes", "Groupes", "Calendrier", "Matchs",
 
 function TournoiPage() {
   const { t, matchs, equipes, joueurs, articles } = Route.useLoaderData();
-  const [onglet, setOnglet] = useState(ONGLETS[0]);
+  const [onglet, setOnglet] = useState<string>(ONGLETS[0]!);
   const termines = matchs.filter((m) => m.statut === "termine");
 
   const classement = equipes.map((e) => {
