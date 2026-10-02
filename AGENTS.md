@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- AI calls live in src/lib/*.functions.ts server functions with zod-bounded input; output rendered as plain text (no HTML) to avoid injection.

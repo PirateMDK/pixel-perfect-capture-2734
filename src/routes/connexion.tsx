@@ -21,8 +21,12 @@ function ConnexionPage() {
   const [erreur, setErreur] = useState("");
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!id || mdp.length < 6) {
-      setErreur("Renseignez votre email ou téléphone et un mot de passe d'au moins 6 caractères.");
+    const ident = id.trim();
+    const valide = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ident) || /^\+?[0-9 ]{8,15}$/.test(ident);
+    if (!valide || mdp.length < 8 || mdp.length > 128) {
+      const msg = "Email ou téléphone valide et mot de passe de 8 caractères minimum requis.";
+      setErreur(msg);
+      toast.error(msg);
       return;
     }
     setErreur("");

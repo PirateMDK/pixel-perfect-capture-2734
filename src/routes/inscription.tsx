@@ -30,8 +30,11 @@ function InscriptionPage() {
   const [erreur, setErreur] = useState("");
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!role) return setErreur("Choisissez votre profil.");
-    if (!nom || !contact) return setErreur("Renseignez votre nom et un email ou téléphone.");
+    const fail = (m: string) => { setErreur(m); toast.error(m); };
+    if (!ROLES.some((r) => r.id === role)) return fail("Choisissez votre profil.");
+    const n = nom.trim(), c = contact.trim();
+    if (n.length < 2 || n.length > 100) return fail("Renseignez un nom valide (2 à 100 caractères).");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c) && !/^\+?[0-9 ]{8,15}$/.test(c)) return fail("Email ou téléphone invalide.");
     setErreur("");
     toast.success("Compte créé (démonstration) — la validation sera branchée plus tard.");
   };

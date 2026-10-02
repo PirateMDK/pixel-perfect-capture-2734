@@ -4,3 +4,5 @@
 - [x] Palette : vert dominant, jaune accent, rouge statuts fermés/terminés
 - [x] Pages : équipes, joueurs, tournois, matchs, stats, talents, actualités, recherche
 - [x] Auth (connexion, inscription) + espaces équipe/organisateur/recruteur/admin
+- [x] Analyse IA recruteur, notifications, revue sécurité
+- [ ] Contrôle d'accès réel aux espaces (bloqué : nécessite connexion réelle via Lovable Cloud)
