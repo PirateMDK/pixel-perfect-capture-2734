@@ -9,14 +9,14 @@ import { FilterBar, Pagination, SearchFilter, SelectFilter } from "@/components/
 import { CATEGORIES, COMMUNES, DEPARTEMENTS } from "@/data/mock";
 import { getTeams } from "@/services/api";
 
-type Search = { q?: string; departement?: string; commune?: string; categorie?: string };
+type Search = { q?: string | undefined; departement?: string | undefined; commune?: string | undefined; categorie?: string | undefined };
 
 export const Route = createFileRoute("/equipes/")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    q: (s.q as string) || undefined,
-    departement: (s.departement as string) || undefined,
-    commune: (s.commune as string) || undefined,
-    categorie: (s.categorie as string) || undefined,
+    q: (s["q"] as string) || undefined,
+    departement: (s["departement"] as string) || undefined,
+    commune: (s["commune"] as string) || undefined,
+    categorie: (s["categorie"] as string) || undefined,
   }),
   head: () => ({
     meta: [

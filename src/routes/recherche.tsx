@@ -7,7 +7,7 @@ import { EmptyState, LoadingState } from "@/components/fbn/States";
 import { search } from "@/services/api";
 
 export const Route = createFileRoute("/recherche")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: typeof s.q === "string" ? s.q : "" }),
+  validateSearch: (s: Record<string, unknown>) => ({ q: typeof s["q"] === "string" ? s["q"] : "" }),
   head: () => ({
     meta: [
       { title: "Recherche — Foot Bénin Network" },

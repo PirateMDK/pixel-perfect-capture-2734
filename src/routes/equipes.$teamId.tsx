@@ -43,7 +43,7 @@ const ONGLETS = ["Présentation", "Effectif", "Matchs", "Résultats", "Tournois"
 
 function EquipePage() {
   const { team, joueurs, matchs, tournois } = Route.useLoaderData();
-  const [onglet, setOnglet] = useState(ONGLETS[0]);
+  const [onglet, setOnglet] = useState<string>(ONGLETS[0]!);
   const resultats = matchs.filter((m) => m.statut === "termine");
   const buts = joueurs.reduce((s, p) => s + p.stats.buts, 0);
 

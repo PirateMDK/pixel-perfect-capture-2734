@@ -80,8 +80,8 @@ function StatsPage() {
                   <XAxis dataKey="nom" stroke="var(--muted-foreground)" fontSize={12} />
                   <YAxis stroke="var(--muted-foreground)" fontSize={12} allowDecimals={false} />
                   <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12 }} />
-                  <Bar dataKey="buts" fill="var(--primary)" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="passes" fill="var(--accent)" radius={[6, 6, 0, 0]} />
+                  <Bar isAnimationActive={false} dataKey="buts" fill="var(--primary)" radius={[6, 6, 0, 0]} />
+                  <Bar isAnimationActive={false} dataKey="passes" fill="var(--accent)" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -116,7 +116,7 @@ function StatsPage() {
                   <XAxis dataKey="mois" stroke="var(--muted-foreground)" fontSize={12} />
                   <YAxis stroke="var(--muted-foreground)" fontSize={12} />
                   <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12 }} />
-                  <Bar dataKey="buts" fill="var(--primary)" radius={[6, 6, 0, 0]} />
+                  <Bar isAnimationActive={false} dataKey="buts" fill="var(--primary)" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
