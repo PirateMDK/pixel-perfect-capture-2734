@@ -19,8 +19,8 @@ export function AiScouting({ joueurs }: { joueurs: Player[] }) {
 
   const lancer = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (criteres.trim().length < 3) return toast.error("Décrivez vos critères (3 caractères minimum).");
-    if (choisis.length === 0) return toast.error("Sélectionnez au moins un profil.");
+    if (criteres.trim().length < 3) { toast.error("Décrivez vos critères (3 caractères minimum)."); return; }
+    if (choisis.length === 0) { toast.error("Sélectionnez au moins un profil."); return; }
     const sel = joueurs.filter((p) => choisis.includes(p.id)).slice(0, 40);
     setChargement(true);
     setResultat("");
