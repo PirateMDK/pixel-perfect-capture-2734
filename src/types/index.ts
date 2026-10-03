@@ -18,8 +18,9 @@ export type Departement =
   | "Plateau"
   | "Zou";
 
-export type Categorie = "U15" | "U17" | "U19" | "Séniors" | "Féminin" | "Vétérans";
+export type Categorie = import("@/config/referentiels").CategorieNom;
 
+/** Groupe de poste ; le poste détaillé (GB, DC, MC…) est dans Player.posteDetail. */
 export type Poste = "Gardien" | "Défenseur" | "Milieu" | "Attaquant";
 
 export type StatutTournoi = "inscriptions" | "bientot" | "en_cours" | "termine";
@@ -62,10 +63,13 @@ export interface Player {
   teamId: string;
   categorie: Categorie;
   poste: Poste;
+  posteDetail: string;
+  posteSecondaire?: string;
+  surnom?: string;
   pied: "Droit" | "Gauche";
   departement: Departement;
   commune: string;
-  statut: "Actif" | "Blessé" | "Suspendu";
+  statut: "Actif" | "Blessé" | "Suspendu" | "Archivé" | "Corbeille";
   stats: PlayerSeasonStats;
   historique: { saison: string; equipe: string }[];
 }
@@ -89,7 +93,7 @@ export interface Tournament {
 
 export interface MatchEvent {
   minute: number;
-  type: "but" | "jaune" | "rouge" | "remplacement";
+  type: "but" | "csc" | "penalty" | "passe" | "jaune" | "rouge" | "remplacement" | "entree" | "sortie";
   joueur: string;
   equipe: "domicile" | "exterieur";
 }
@@ -108,6 +112,8 @@ export interface Match {
   heure: string;
   lieu: string;
   statut: StatutMatch;
+  /** Seul un résultat "valide" alimente les statistiques. */
+  statutResultat: "brouillon" | "saisi" | "soumis" | "valide" | "conteste" | "rejete";
   journee: string;
   evenements: MatchEvent[];
   statistiques: { label: string; domicile: number; exterieur: number }[];
@@ -127,4 +133,84 @@ export interface Article {
 export interface PlatformStat {
   label: string;
   valeur: string;
+}
+
+export type EspaceId = "equipe" | "organisateur" | "recruteur" | "media" | "admin";
+
+export interface AppNotification {
+  id: string;
+  espace: EspaceId;
+  titre: string;
+  description: string;
+  date: string;
+  lue: boolean;
+  lien?: string;
+}
+
+export interface ContactRequest {
+  id: string;
+  recruteur: string;
+  playerId: string;
+  joueur: string;
+  teamId: string;
+  equipe: string;
+  message: string;
+  date: string;
+  statut: "attente" | "acceptee" | "refusee" | "fermee";
+}
+
+export interface Report {
+  id: string;
+  cible: string;
+  typeCible: string;
+  motif: string;
+  commentaire?: string;
+  date: string;
+  statut: "nouveau" | "en_cours" | "traite" | "rejete";
+}
+
+export interface TrashItem {
+  id: string;
+  type: string;
+  nom: string;
+  supprimeLe: string;
+  par: string;
+  raison?: string;
+}
+
+export interface Advertisement {
+  id: string;
+  annonceur: string;
+  titre: string;
+  visuel?: string;
+  emplacement: string;
+  debut: string;
+  fin: string;
+  statut: "brouillon" | "attente" | "active" | "expiree" | "desactivee";
+}
+
+export interface MediaContent {
+  id: string;
+  type: "Article" | "Photo" | "Vidéo";
+  titre: string;
+  date: string;
+  vues: number;
+  statut: "brouillon" | "attente" | "publie" | "rejete" | "archive";
+}
+
+export interface AdminUser {
+  id: string;
+  nom: string;
+  role: string;
+  email: string;
+  statut: "actif" | "desactive" | "archive";
+}
+
+/** Données privées d'un joueur : jamais affichées sur le profil public. */
+export interface PlayerPrivate {
+  playerId: string;
+  dateNaissance: string;
+  tuteur?: { nom: string; relation: string; contact: string };
+  urgence?: { nom: string; contact: string };
+  autorisationPhoto: boolean;
 }
