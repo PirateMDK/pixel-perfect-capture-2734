@@ -2,6 +2,8 @@ import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/fbn/Logo";
+import { NotificationBell } from "@/components/fbn/NotificationBell";
+import type { EspaceId } from "@/types";
 
 export interface DashboardSection {
   id: string;
@@ -15,10 +17,12 @@ export interface DashboardSection {
  */
 export function DashboardLayout({
   espace,
+  espaceId,
   utilisateur,
   sections,
 }: {
   espace: string;
+  espaceId: EspaceId;
   utilisateur: string;
   sections: DashboardSection[];
 }) {
@@ -29,11 +33,20 @@ export function DashboardLayout({
     <div className="relative min-h-screen bg-background">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:flex-row">
         <aside className="lg:w-64 lg:shrink-0">
-          <div className="glass rounded-2xl p-4">
-            <Logo compact />
+          <div className="glass rounded-2xl p-4 lg:sticky lg:top-6">
+            <div className="flex items-center justify-between gap-2">
+              <Logo compact />
+              <NotificationBell espace={espaceId} />
+            </div>
             <p className="mt-4 font-display text-lg uppercase">{espace}</p>
             <p className="text-xs text-muted-foreground">{utilisateur}</p>
-            <nav aria-label={`Menu ${espace}`} className="mt-4 flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible">
+            <label className="mt-4 block lg:hidden">
+              <span className="sr-only">Section</span>
+              <select value={courante?.id} onChange={(e) => setActif(e.target.value)} className="focus-ring w-full rounded-xl bg-surface px-3 py-2.5 text-sm outline-none">
+                {sections.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
+              </select>
+            </label>
+            <nav aria-label={`Menu ${espace}`} className="mt-4 hidden flex-col gap-1 lg:flex">
               {sections.map((s) => (
                 <button
                   key={s.id}
@@ -41,7 +54,7 @@ export function DashboardLayout({
                   onClick={() => setActif(s.id)}
                   aria-current={s.id === courante?.id}
                   className={cn(
-                    "focus-ring shrink-0 rounded-xl px-3 py-2 text-left text-sm transition-colors lg:w-full",
+                    "focus-ring w-full rounded-xl px-3 py-2 text-left text-sm transition-colors",
                     s.id === courante?.id
                       ? "bg-primary text-primary-foreground font-semibold"
                       : "text-muted-foreground hover:bg-surface hover:text-foreground",
@@ -51,9 +64,10 @@ export function DashboardLayout({
                 </button>
               ))}
             </nav>
+            <p className="mt-4 rounded-xl bg-warning/10 p-2 text-[11px] text-warning">Espace de démonstration : session simulée, aucune donnée enregistrée.</p>
             <Link
               to="/"
-              className="focus-ring mt-4 inline-flex w-full justify-center rounded-xl bg-surface px-3 py-2 text-sm hover:bg-surface-strong"
+              className="focus-ring mt-3 inline-flex w-full justify-center rounded-xl bg-surface px-3 py-2 text-sm hover:bg-surface-strong"
             >
               Retour au site
             </Link>
@@ -103,34 +117,43 @@ export function KpiGrid({ items }: { items: { label: string; valeur: string }[] 
 export function SimpleTable({
   colonnes,
   lignes,
+  vide = "Aucun élément",
 }: {
   colonnes: string[];
-  lignes: (string | number)[][];
+  lignes: (ReactNode)[][];
+  vide?: string;
 }) {
+  if (!lignes.length) return <p className="py-8 text-center text-sm text-muted-foreground">{vide}</p>;
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[520px] text-sm">
+    <>
+      <table className="hidden w-full text-sm md:table">
         <thead>
           <tr className="border-b border-border text-left text-xs tracking-wider text-muted-foreground uppercase">
             {colonnes.map((c) => (
-              <th key={c} scope="col" className="px-3 py-2 font-semibold">
-                {c}
-              </th>
+              <th key={c} scope="col" className="px-3 py-2 font-semibold">{c}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {lignes.map((l, i) => (
             <tr key={i} className="border-b border-border/60 last:border-0">
-              {l.map((cell, j) => (
-                <td key={j} className="px-3 py-2.5">
-                  {cell}
-                </td>
-              ))}
+              {l.map((cell, j) => <td key={j} className="px-3 py-2.5">{cell}</td>)}
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+      {/* Mobile : cartes au lieu d'un débordement horizontal */}
+      <ul className="space-y-2 md:hidden">
+        {lignes.map((l, i) => (
+          <li key={i} className="rounded-xl bg-surface p-3 text-sm">
+            {l.map((cell, j) => (
+              <div key={j} className={j === 0 ? "font-semibold" : "flex justify-between gap-3"}>
+                {j > 0 && <span className="text-xs text-muted-foreground">{colonnes[j]}</span>}<span>{cell}</span>
+              </div>
+            ))}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
