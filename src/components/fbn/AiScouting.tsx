@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import type { Player } from "@/types";
 import { analyserProfils } from "@/lib/scouting.functions";
 
-const POSTES = ["Gardien", "Défenseur", "Milieu", "Attaquant"];
+import { GROUPES_POSTES as POSTES } from "@/config/referentiels";
 
 export function AiScouting({ joueurs }: { joueurs: Player[] }) {
   const analyser = useServerFn(analyserProfils);
@@ -31,7 +31,7 @@ export function AiScouting({ joueurs }: { joueurs: Player[] }) {
           poste,
           criteres: criteres.slice(0, 1500),
           joueurs: sel.map((p) => ({
-            id: p.id, nom: p.nom, poste: p.poste, categorie: p.categorie, pied: p.pied,
+            id: p.id, nom: p.nom, poste: `${p.poste} (${p.posteDetail})`, categorie: p.categorie, pied: p.pied,
             commune: p.commune, statut: p.statut, ...p.stats,
           })),
         },

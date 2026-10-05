@@ -14,6 +14,7 @@ import { Route as ActualitesRouteImport } from './routes/actualites'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as EspaceEquipeRouteImport } from './routes/espace-equipe'
+import { Route as EspaceMediaRouteImport } from './routes/espace-media'
 import { Route as EspaceOrganisateurRouteImport } from './routes/espace-organisateur'
 import { Route as EspaceRecruteurRouteImport } from './routes/espace-recruteur'
 import { Route as InscriptionRouteImport } from './routes/inscription'
@@ -52,6 +53,11 @@ const ConnexionRoute = ConnexionRouteImport.update({
 const EspaceEquipeRoute = EspaceEquipeRouteImport.update({
   id: '/espace-equipe',
   path: '/espace-equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EspaceMediaRoute = EspaceMediaRouteImport.update({
+  id: '/espace-media',
+  path: '/espace-media',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EspaceOrganisateurRoute = EspaceOrganisateurRouteImport.update({
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/connexion': typeof ConnexionRoute
   '/espace-equipe': typeof EspaceEquipeRoute
+  '/espace-media': typeof EspaceMediaRoute
   '/espace-organisateur': typeof EspaceOrganisateurRoute
   '/espace-recruteur': typeof EspaceRecruteurRoute
   '/inscription': typeof InscriptionRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/connexion': typeof ConnexionRoute
   '/espace-equipe': typeof EspaceEquipeRoute
+  '/espace-media': typeof EspaceMediaRoute
   '/espace-organisateur': typeof EspaceOrganisateurRoute
   '/espace-recruteur': typeof EspaceRecruteurRoute
   '/inscription': typeof InscriptionRoute
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/connexion': typeof ConnexionRoute
   '/espace-equipe': typeof EspaceEquipeRoute
+  '/espace-media': typeof EspaceMediaRoute
   '/espace-organisateur': typeof EspaceOrganisateurRoute
   '/espace-recruteur': typeof EspaceRecruteurRoute
   '/inscription': typeof InscriptionRoute
@@ -197,6 +206,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/connexion'
     | '/espace-equipe'
+    | '/espace-media'
     | '/espace-organisateur'
     | '/espace-recruteur'
     | '/inscription'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/connexion'
     | '/espace-equipe'
+    | '/espace-media'
     | '/espace-organisateur'
     | '/espace-recruteur'
     | '/inscription'
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/connexion'
     | '/espace-equipe'
+    | '/espace-media'
     | '/espace-organisateur'
     | '/espace-recruteur'
     | '/inscription'
@@ -261,6 +273,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ConnexionRoute: typeof ConnexionRoute
   EspaceEquipeRoute: typeof EspaceEquipeRoute
+  EspaceMediaRoute: typeof EspaceMediaRoute
   EspaceOrganisateurRoute: typeof EspaceOrganisateurRoute
   EspaceRecruteurRoute: typeof EspaceRecruteurRoute
   InscriptionRoute: typeof InscriptionRoute
@@ -312,6 +325,13 @@ declare module '@tanstack/react-router' {
       path: '/espace-equipe'
       fullPath: '/espace-equipe'
       preLoaderRoute: typeof EspaceEquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/espace-media': {
+      id: '/espace-media'
+      path: '/espace-media'
+      fullPath: '/espace-media'
+      preLoaderRoute: typeof EspaceMediaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/espace-organisateur': {
@@ -421,6 +441,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ConnexionRoute: ConnexionRoute,
   EspaceEquipeRoute: EspaceEquipeRoute,
+  EspaceMediaRoute: EspaceMediaRoute,
   EspaceOrganisateurRoute: EspaceOrganisateurRoute,
   EspaceRecruteurRoute: EspaceRecruteurRoute,
   InscriptionRoute: InscriptionRoute,

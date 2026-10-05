@@ -4,6 +4,7 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { PageHeading, PublicLayout, Section } from "@/components/layout/PublicLayout";
 import { FilterBar, SelectFilter } from "@/components/fbn/Filters";
 import { CATEGORIES, DEPARTEMENTS } from "@/data/mock";
+import { GROUPES_POSTES } from "@/config/referentiels";
 import { getPlayers, getTeams, getTournaments } from "@/services/api";
 import type { Player } from "@/types";
 
@@ -64,7 +65,7 @@ function StatsPage() {
           <SelectFilter label="Département" value={departement} onChange={setDepartement} options={DEPARTEMENTS} />
           <SelectFilter label="Catégorie" value={categorie} onChange={setCategorie} options={CATEGORIES} tous="Toutes" />
           <SelectFilter label="Compétition" value={competition} onChange={setCompetition} options={tournois.map((t) => ({ value: t.id, label: t.nom }))} tous="Toutes" />
-          <SelectFilter label="Poste" value={poste} onChange={setPoste} options={["Gardien", "Défenseur", "Milieu", "Attaquant"]} />
+          <SelectFilter label="Poste" value={poste} onChange={setPoste} options={[...GROUPES_POSTES]} />
         </FilterBar>
       </div>
       <Section titre="Meilleurs buteurs & passeurs">

@@ -4,7 +4,12 @@ import { DashboardLayout, KpiGrid, Panel, SimpleTable } from "@/components/layou
 import { MatchCard } from "@/components/fbn/Cards";
 import { TournamentStatusBadge } from "@/components/fbn/StatusBadge";
 import { CATEGORIES, DEPARTEMENTS } from "@/data/mock";
-import { getMatches, getTeams, getTournaments } from "@/services/api";
+import { getMatches, getPlayers, getTeams, getTournaments } from "@/services/api";
+import { useState } from "react";
+import { MatchSheet } from "@/components/fbn/MatchSheet";
+import { NotificationList } from "@/components/fbn/NotificationBell";
+import { StatusPill } from "@/components/fbn/StatusPill";
+import { STATUTS_RESULTAT } from "@/config/referentiels";
 
 export const Route = createFileRoute("/espace-organisateur")({
   head: () => ({
@@ -16,18 +21,21 @@ export const Route = createFileRoute("/espace-organisateur")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  loader: async () => ({ tournois: await getTournaments(), matchs: await getMatches(), equipes: await getTeams() }),
+  loader: async () => ({ tournois: await getTournaments(), matchs: await getMatches(), equipes: await getTeams(), joueurs: await getPlayers() }),
   component: EspaceOrganisateur,
 });
 
 const champ = "focus-ring mt-1 w-full rounded-xl bg-surface px-3 py-2.5 outline-none";
 
 function EspaceOrganisateur() {
-  const { tournois, matchs, equipes } = Route.useLoaderData();
+  const { tournois, matchs, equipes, joueurs } = Route.useLoaderData();
+  const [matchId, setMatchId] = useState(matchs[0]?.id ?? "");
+  const sel = matchs.find((m) => m.id === matchId);
   const mes = tournois.slice(0, 3);
   return (
     <DashboardLayout
       espace="Organisateur"
+      espaceId="organisateur"
       utilisateur="Comité des quartiers d'Agla"
       sections={[
         { id: "dash", label: "Dashboard", contenu: (<>
@@ -59,9 +67,14 @@ function EspaceOrganisateur() {
             <button className="focus-ring rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground sm:w-fit">Enregistrer</button>
           </form></Panel>
         ) },
+        { id: "feuille", label: "Feuille de match", contenu: (<>
+          <label className="block max-w-md text-sm">Match<select value={matchId} onChange={(e) => setMatchId(e.target.value)} className={champ}>{matchs.map((m) => <option key={m.id} value={m.id}>{m.domicile} – {m.exterieur} · {m.date}</option>)}</select></label>
+          {sel ? <MatchSheet key={sel.id} match={sel} categorie={tournois.find((t) => t.id === sel.tournamentId)?.categorie ?? ""} dom={joueurs.filter((p) => p.teamId === sel.domicileId)} ext={joueurs.filter((p) => p.teamId === sel.exterieurId)} /> : <p className="text-sm text-muted-foreground">Aucun match.</p>}
+        </>) },
+        { id: "suivi", label: "Suivi des résultats", contenu: <Panel><SimpleTable colonnes={["Match", "Score", "Statut"]} lignes={matchs.filter((m) => m.statut !== "a_venir").map((m) => [`${m.domicile} – ${m.exterieur}`, `${m.scoreDomicile ?? "-"} – ${m.scoreExterieur ?? "-"}`, <StatusPill key={m.id} statut={m.statutResultat} defs={STATUTS_RESULTAT} />])} vide="Aucun résultat" /></Panel> },
         { id: "classements", label: "Classements", contenu: <Panel><SimpleTable colonnes={["#", "Équipe", "Pts"]} lignes={equipes.slice(0, 6).map((e, i) => [i + 1, e.nom, 12 - i * 2])} /></Panel> },
         { id: "stats", label: "Statistiques", contenu: <KpiGrid items={[{ label: "Buts", valeur: "64" }, { label: "Moyenne / match", valeur: "2,9" }, { label: "Cartons jaunes", valeur: "41" }, { label: "Cartons rouges", valeur: "3" }]} /> },
-        { id: "notifs", label: "Notifications", contenu: <Panel><ul className="space-y-3 text-sm"><li>3 nouvelles demandes d'inscription.</li><li>Résultat de la journée 12 validé par l'administration.</li></ul></Panel> },
+        { id: "notifs", label: "Notifications", contenu: <Panel><NotificationList espace="organisateur" /></Panel> },
         { id: "params", label: "Paramètres", contenu: <Panel><p className="text-sm text-muted-foreground">Paramètres disponibles après branchement de l'authentification.</p></Panel> },
       ]}
     />
