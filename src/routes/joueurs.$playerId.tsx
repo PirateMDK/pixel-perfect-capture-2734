@@ -1,5 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { toast } from "sonner";
+import { ContactTeamButton, ReportButton } from "@/components/fbn/Dialogs";
+import { libellePoste } from "@/config/referentiels";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { Avatar, MatchCard } from "@/components/fbn/Cards";
 import { Chip } from "@/components/fbn/StatusBadge";
@@ -48,16 +49,15 @@ function JoueurPage() {
             <p className="mt-1 text-sm text-muted-foreground">
               {team && <Link to="/equipes/$teamId" params={{ teamId: team.id }} className="focus-ring rounded text-foreground hover:text-primary">{team.nom}</Link>} · {p.commune}
             </p>
-            <div className="mt-3 flex flex-wrap gap-2"><Chip>{p.poste}</Chip><Chip>{p.categorie}</Chip><Chip>Pied {p.pied.toLowerCase()}</Chip><Chip>{p.statut}</Chip></div>
+            <div className="mt-3 flex flex-wrap gap-2"><Chip>{p.poste} · {p.posteDetail} ({libellePoste(p.posteDetail)})</Chip>{p.posteSecondaire && <Chip>2nd : {p.posteSecondaire}</Chip>}<Chip>{p.categorie}</Chip><Chip>Pied {p.pied.toLowerCase()}</Chip><Chip>{p.statut}</Chip></div>
           </div>
-          <button type="button" onClick={() => toast.success("Demande transmise au responsable de l'équipe (démonstration).")} className="focus-ring rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">
-            Contacter son équipe
-          </button>
+          <div className="flex flex-wrap gap-2">{team && <ContactTeamButton playerId={p.id} joueur={p.nom} teamId={team.id} equipe={team.nom} />}<ReportButton cible={p.nom} typeCible="Joueur" /></div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-        <h2 className="display-title mb-4 text-2xl">Statistiques de la saison</h2>
+        <h2 className="display-title mb-1 text-2xl">Statistiques de la saison</h2>
+        <p className="mb-4 text-xs text-muted-foreground">Calculées à partir des matchs et événements validés uniquement.</p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
           {stats.map(([l, v]) => (
             <div key={l} className="glass rounded-2xl p-4">

@@ -5,6 +5,7 @@ import { PlayerCard } from "@/components/fbn/Cards";
 import { EmptyState } from "@/components/fbn/States";
 import { FilterBar, SearchFilter, SelectFilter } from "@/components/fbn/Filters";
 import { CATEGORIES, DEPARTEMENTS } from "@/data/mock";
+import { GROUPES_POSTES } from "@/config/referentiels";
 import { getPlayers, getTeams } from "@/services/api";
 
 export const Route = createFileRoute("/joueurs/")({
@@ -46,7 +47,7 @@ function JoueursPage() {
           <SearchFilter value={q} onChange={setQ} placeholder="Nom du joueur" />
           <SelectFilter label="Département" value={departement} onChange={setDepartement} options={DEPARTEMENTS} />
           <SelectFilter label="Catégorie" value={categorie} onChange={setCategorie} options={CATEGORIES} tous="Toutes" />
-          <SelectFilter label="Poste" value={poste} onChange={setPoste} options={["Gardien", "Défenseur", "Milieu", "Attaquant"]} />
+          <SelectFilter label="Poste" value={poste} onChange={setPoste} options={[...GROUPES_POSTES]} />
           <SelectFilter label="Équipe" value={equipe} onChange={setEquipe} options={equipes.map((e) => ({ value: e.id, label: e.nom }))} tous="Toutes" />
         </FilterBar>
         <p className="mt-5 text-sm text-muted-foreground">{liste.length} joueur(s)</p>

@@ -2,6 +2,8 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { MatchStatusBadge } from "@/components/fbn/StatusBadge";
 import { EmptyState } from "@/components/fbn/States";
+import { StatusPill } from "@/components/fbn/StatusPill";
+import { STATUTS_RESULTAT, TYPES_EVENEMENT } from "@/config/referentiels";
 import { getMatch, getPlayers } from "@/services/api";
 import type { MatchEvent } from "@/types";
 
@@ -35,7 +37,7 @@ function Evenements({ titre, items, m }: { titre: string; items: MatchEvent[]; m
       {items.length === 0 ? <p className="mt-3 text-sm text-muted-foreground">Aucun.</p> : (
         <ul className="mt-3 space-y-2 text-sm">
           {items.map((e, i) => (
-            <li key={i} className="flex gap-3"><span className="w-10 font-display text-primary">{e.minute}'</span><span className="flex-1">{e.joueur}</span><span className="text-muted-foreground">{e.equipe === "domicile" ? m.domicile : m.exterieur}</span></li>
+            <li key={i} className="flex gap-3"><span className="w-10 font-display text-primary">{e.minute}'</span><span className="flex-1">{e.joueur}{e.type !== "but" && e.type !== "remplacement" && <span className="ml-2 text-xs text-muted-foreground">{TYPES_EVENEMENT.find((t) => t.id === e.type)?.label}</span>}</span><span className="text-muted-foreground">{e.equipe === "domicile" ? m.domicile : m.exterieur}</span></li>
           ))}
         </ul>
       )}
@@ -57,14 +59,15 @@ function MatchPage() {
             <Link to="/equipes/$teamId" params={{ teamId: m.exterieurId }} className="focus-ring rounded font-display text-xl uppercase hover:text-primary sm:text-3xl">{m.exterieur}</Link>
           </div>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-            <MatchStatusBadge statut={m.statut} /><span>{m.date}</span><span>· {m.heure}</span><span>· {m.lieu}</span>
+            <MatchStatusBadge statut={m.statut} />{m.statut !== "a_venir" && <StatusPill statut={m.statutResultat} defs={STATUTS_RESULTAT} />}<span>{m.date}</span><span>· {m.heure}</span><span>· {m.lieu}</span>
           </div>
+          {m.statut !== "a_venir" && m.statutResultat !== "valide" && <p className="mt-4 text-xs text-warning">Résultat non encore validé : non comptabilisé dans les statistiques.</p>}
         </div>
       </section>
       <section className="mx-auto grid max-w-5xl gap-4 px-4 py-6 sm:px-6 md:grid-cols-3">
-        <Evenements titre="Buts" items={ev(["but"])} m={m} />
+        <Evenements titre="Buts" items={ev(["but", "penalty", "csc", "passe"])} m={m} />
         <Evenements titre="Cartons" items={ev(["jaune", "rouge"])} m={m} />
-        <Evenements titre="Remplacements" items={ev(["remplacement"])} m={m} />
+        <Evenements titre="Remplacements" items={ev(["remplacement", "entree", "sortie"])} m={m} />
       </section>
       <section className="mx-auto grid max-w-5xl gap-4 px-4 sm:px-6 md:grid-cols-2">
         <div className="glass rounded-2xl p-5">

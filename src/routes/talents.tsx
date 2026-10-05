@@ -5,6 +5,7 @@ import { Avatar } from "@/components/fbn/Cards";
 import { EmptyState } from "@/components/fbn/States";
 import { FilterBar, SelectFilter } from "@/components/fbn/Filters";
 import { CATEGORIES, DEPARTEMENTS } from "@/data/mock";
+import { GROUPES_POSTES } from "@/config/referentiels";
 import { getPlayers, getTeams, getTournaments } from "@/services/api";
 
 export const Route = createFileRoute("/talents")({
@@ -37,7 +38,7 @@ function TalentsPage() {
       <div className="mx-auto max-w-7xl space-y-5 px-4 sm:px-6">
         <div className="glass grid gap-3 rounded-2xl p-4 sm:grid-cols-3 lg:grid-cols-6">
           <SelectFilter label="Catégorie" value={categorie} onChange={setCategorie} options={CATEGORIES} tous="Toutes" />
-          <SelectFilter label="Poste" value={poste} onChange={setPoste} options={["Gardien", "Défenseur", "Milieu", "Attaquant"]} />
+          <SelectFilter label="Poste" value={poste} onChange={setPoste} options={[...GROUPES_POSTES]} />
           <SelectFilter label="Département" value={departement} onChange={setDepartement} options={DEPARTEMENTS} />
           <SelectFilter label="Commune" value={commune} onChange={setCommune} options={communes} tous="Toutes" />
           <SelectFilter label="Saison" value={saison} onChange={setSaison} options={["2025", "2024"]} tous="Toutes" />
