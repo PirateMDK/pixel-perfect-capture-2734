@@ -55,7 +55,7 @@ function JoueursPage() {
         </FilterBar>
         <p className="mt-5 text-sm text-muted-foreground">{liste.length} joueur(s)</p>
         <div className="mt-4">
-          {liste.length === 0 ? <EmptyState /> : (
+          {liste.length === 0 ? <EmptyState titre="Aucun joueur trouvé" /> : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {pg.visibles.map((p) => <PlayerCard key={p.id} player={p} teamNom={nom(p.teamId)} />)}
             </div>
