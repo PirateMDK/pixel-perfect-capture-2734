@@ -224,3 +224,7 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Listes déroulantes natives lisibles sur fond sombre (options jamais blanches sur blanc) */
+:root { color-scheme: dark; }
+select option, select optgroup { background-color: var(--popover); color: var(--popover-foreground); }
