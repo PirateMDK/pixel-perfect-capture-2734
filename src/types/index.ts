@@ -64,8 +64,8 @@ export interface Player {
   categorie: Categorie;
   poste: Poste;
   posteDetail: string;
-  posteSecondaire?: string;
-  surnom?: string;
+  posteSecondaire?: string | undefined;
+  surnom?: string | undefined;
   pied: "Droit" | "Gauche";
   departement: Departement;
   commune: string;
@@ -144,7 +144,7 @@ export interface AppNotification {
   description: string;
   date: string;
   lue: boolean;
-  lien?: string;
+  lien?: string | undefined;
 }
 
 export interface ContactRequest {
@@ -164,7 +164,7 @@ export interface Report {
   cible: string;
   typeCible: string;
   motif: string;
-  commentaire?: string;
+  commentaire?: string | undefined;
   date: string;
   statut: "nouveau" | "en_cours" | "traite" | "rejete";
 }
@@ -175,14 +175,14 @@ export interface TrashItem {
   nom: string;
   supprimeLe: string;
   par: string;
-  raison?: string;
+  raison?: string | undefined;
 }
 
 export interface Advertisement {
   id: string;
   annonceur: string;
   titre: string;
-  visuel?: string;
+  visuel?: string | undefined;
   emplacement: string;
   debut: string;
   fin: string;
@@ -210,7 +210,7 @@ export interface AdminUser {
 export interface PlayerPrivate {
   playerId: string;
   dateNaissance: string;
-  tuteur?: { nom: string; relation: string; contact: string };
-  urgence?: { nom: string; contact: string };
+  tuteur?: { nom: string; relation: string; contact: string } | undefined;
+  urgence?: { nom: string; contact: string } | undefined;
   autorisationPhoto: boolean;
 }

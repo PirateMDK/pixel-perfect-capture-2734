@@ -36,7 +36,7 @@ export function MatchSheet({ match, categorie, dom, ext }: { match: Match; categ
 
   const avancer = () => {
     const i = ORDRE.indexOf(statut as (typeof ORDRE)[number]);
-    const suivant = ORDRE[Math.min(i + 1, ORDRE.length - 1)];
+    const suivant = ORDRE[Math.min(i + 1, ORDRE.length - 1)] ?? "soumis";
     setStatut(suivant);
     toast(suivant === "soumis" ? "Feuille soumise : en attente de validation par l'administration." : "Feuille enregistrée comme saisie (démonstration).");
   };
