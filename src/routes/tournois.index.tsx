@@ -1,3 +1,5 @@
+import { usePagination } from "@/components/fbn/CrudTable";
+import { Pagination } from "@/components/fbn/Filters";
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeading, PublicLayout } from "@/components/layout/PublicLayout";
@@ -51,7 +53,7 @@ function TournoisPage() {
           <SelectFilter label="Date" value="" onChange={() => {}} options={["2025", "2026"]} tous="Toutes les dates" />
         </FilterBar>
         {liste.length === 0 ? <EmptyState /> : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{liste.map((t) => <TournamentCard key={t.id} tournament={t} />)}</div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{pg.visibles.map((t) => <TournamentCard key={t.id} tournament={t} />)}</div>
         )}
       </div>
     </PublicLayout>

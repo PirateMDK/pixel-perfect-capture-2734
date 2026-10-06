@@ -1,3 +1,5 @@
+import { usePagination } from "@/components/fbn/CrudTable";
+import { Pagination } from "@/components/fbn/Filters";
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeading, PublicLayout } from "@/components/layout/PublicLayout";
@@ -37,6 +39,7 @@ function JoueursPage() {
       (!equipe || p.teamId === equipe)),
     [joueurs, q, departement, categorie, poste, equipe],
   );
+  const pg = usePagination(liste, 8);
   const nom = (id: string) => equipes.find((e) => e.id === id)?.nom;
 
   return (
@@ -54,10 +57,11 @@ function JoueursPage() {
         <div className="mt-4">
           {liste.length === 0 ? <EmptyState /> : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {liste.map((p) => <PlayerCard key={p.id} player={p} teamNom={nom(p.teamId)} />)}
+              {pg.visibles.map((p) => <PlayerCard key={p.id} player={p} teamNom={nom(p.teamId)} />)}
             </div>
           )}
         </div>
+        <Pagination page={pg.page} total={pg.total} onChange={pg.setPage} />
       </div>
     </PublicLayout>
   );
