@@ -54,11 +54,11 @@ function EspaceMedia() {
   const enregistrer = (e: React.FormEvent<HTMLFormElement>, soumettre: boolean) => {
     e.preventDefault();
     const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    const titre = (f.titre ?? "").trim().slice(0, 150);
+    const titre = (f["titre"] ?? "").trim().slice(0, 150);
     if (titre.length < 5) return void toast.error("Le titre doit contenir au moins 5 caractères.");
     const statut: MediaContent["statut"] = soumettre ? "attente" : "brouillon";
-    if (edition.c) setItems((l) => l.map((c) => (c.id === edition.c!.id ? { ...c, titre, type: f.type as MediaContent["type"], statut } : c)));
-    else setItems((l) => [{ id: crypto.randomUUID(), titre, type: f.type as MediaContent["type"], date: new Date().toLocaleDateString("fr-FR"), vues: 0, statut }, ...l]);
+    if (edition.c) setItems((l) => l.map((c) => (c.id === edition.c!.id ? { ...c, titre, type: f["type"] as MediaContent["type"], statut } : c)));
+    else setItems((l) => [{ id: crypto.randomUUID(), titre, type: f["type"] as MediaContent["type"], date: new Date().toLocaleDateString("fr-FR"), vues: 0, statut }, ...l]);
     toast.success(soumettre ? "Contenu soumis à vérification (démonstration)." : "Brouillon enregistré (démonstration).");
     setEdition({ open: false });
   };

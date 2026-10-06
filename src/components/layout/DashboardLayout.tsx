@@ -121,7 +121,7 @@ export function SimpleTable({
 }: {
   colonnes: string[];
   lignes: (ReactNode)[][];
-  vide?: string;
+  vide?: string | undefined;
 }) {
   if (!lignes.length) return <p className="py-8 text-center text-sm text-muted-foreground">{vide}</p>;
   return (
