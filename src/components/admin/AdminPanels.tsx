@@ -153,6 +153,7 @@ export function GestionCategories() {
     const i = tri.findIndex((c) => c.id === id); const j = i + d;
     if (j < 0 || j >= tri.length) return;
     const a = tri[i], b = tri[j];
+    if (!a || !b) return;
     setItems((l) => l.map((c) => (c.id === a.id ? { ...c, ordre: b.ordre } : c.id === b.id ? { ...c, ordre: a.ordre } : c)));
   };
   return (
@@ -216,7 +217,8 @@ export function Publicites() {
   const set = (id: string, statut: Advertisement["statut"]) => { setItems((l) => l.map((a) => (a.id === id ? { ...a, statut } : a))); toast.success("Statut de la publicité mis à jour."); };
   const enregistrer = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const fd = new FormData(e.currentTarget);
+    const f = { annonceur: String(fd.get("annonceur") ?? ""), titre: String(fd.get("titre") ?? ""), debut: String(fd.get("debut") ?? ""), fin: String(fd.get("fin") ?? ""), emplacement: String(fd.get("emplacement") ?? ""), statut: String(fd.get("statut") ?? "brouillon") };
     if (!f.annonceur?.trim() || !f.titre?.trim() || !f.debut || !f.fin) return void toast.error("Annonceur, titre et dates obligatoires.");
     if (f.fin < f.debut) return void toast.error("La date de fin doit suivre la date de début.");
     const data = { annonceur: f.annonceur.trim().slice(0, 100), titre: f.titre.trim().slice(0, 120), emplacement: f.emplacement, debut: f.debut, fin: f.fin, statut: f.statut as Advertisement["statut"] };

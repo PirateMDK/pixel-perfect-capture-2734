@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { Bell } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { actions, useMockStore } from "@/lib/mock-store";
@@ -51,7 +50,7 @@ export function NotificationList({ espace, compact }: { espace: EspaceId; compac
             <p className="text-muted-foreground">{n.description}</p>
             <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
               <span>{n.date}</span>
-              {n.lien && <Link to={n.lien} onClick={() => actions.marquerLue(n.id)} className="focus-ring rounded text-primary">Voir</Link>}
+              {n.lien && <a href={n.lien} onClick={() => actions.marquerLue(n.id)} className="focus-ring rounded text-primary">Voir</a>}
               <button type="button" onClick={() => actions.marquerLue(n.id, !n.lue)} className="focus-ring rounded hover:text-foreground">
                 {n.lue ? "Marquer non lue" : "Marquer lue"}
               </button>

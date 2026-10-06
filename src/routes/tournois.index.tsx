@@ -1,3 +1,5 @@
+import { usePagination } from "@/components/fbn/CrudTable";
+import { Pagination } from "@/components/fbn/Filters";
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeading, PublicLayout } from "@/components/layout/PublicLayout";
@@ -38,6 +40,7 @@ function TournoisPage() {
       (!st || t.statut === st));
   }, [tous, q, departement, categorie, statut, rapide]);
 
+  const pg = usePagination(liste, 6);
   return (
     <PublicLayout>
       <PageHeading surtitre="Compétitions" titre="Tous les tournois" />
@@ -50,9 +53,10 @@ function TournoisPage() {
           <SelectFilter label="Statut" value={statut} onChange={setStatut} options={[{ value: "inscriptions", label: "Inscriptions ouvertes" }, { value: "bientot", label: "Bientôt" }, { value: "en_cours", label: "En cours" }, { value: "termine", label: "Terminé" }]} />
           <SelectFilter label="Date" value="" onChange={() => {}} options={["2025", "2026"]} tous="Toutes les dates" />
         </FilterBar>
-        {liste.length === 0 ? <EmptyState /> : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{liste.map((t) => <TournamentCard key={t.id} tournament={t} />)}</div>
+        {liste.length === 0 ? <EmptyState titre="Aucun tournoi disponible" /> : (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{pg.visibles.map((t) => <TournamentCard key={t.id} tournament={t} />)}</div>
         )}
+        <Pagination page={pg.page} total={pg.total} onChange={pg.setPage} />
       </div>
     </PublicLayout>
   );

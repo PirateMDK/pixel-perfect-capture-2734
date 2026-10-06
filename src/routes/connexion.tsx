@@ -56,6 +56,7 @@ function ConnexionPage() {
             <Link to="/espace-equipe" className="focus-ring rounded-full bg-surface px-3 py-1.5 hover:bg-surface-strong">Équipe</Link>
             <Link to="/espace-organisateur" className="focus-ring rounded-full bg-surface px-3 py-1.5 hover:bg-surface-strong">Organisateur</Link>
             <Link to="/espace-recruteur" className="focus-ring rounded-full bg-surface px-3 py-1.5 hover:bg-surface-strong">Recruteur</Link>
+            <Link to="/espace-media" className="focus-ring rounded-full bg-surface px-3 py-1.5 hover:bg-surface-strong">Média</Link>
             <Link to="/admin" className="focus-ring rounded-full bg-surface px-3 py-1.5 hover:bg-surface-strong">Administration</Link>
           </div>
         </div>

@@ -39,7 +39,7 @@ function Section({ titre, children, prive }: { titre: string; children: React.Re
 }
 
 /** Formulaire joueur complet (création / modification). NPI volontairement absent. */
-export function PlayerForm({ joueur, prive, onDone }: { joueur?: Player; prive?: PlayerPrivate; onDone?: () => void }) {
+export function PlayerForm({ joueur, prive, onDone }: { joueur?: Player | undefined; prive?: PlayerPrivate | undefined; onDone?: () => void }) {
   const [nomComplet] = useState(joueur?.nom ?? "");
   const [categorie, setCategorie] = useState<string>(joueur?.categorie ?? "");
   const [poste, setPoste] = useState(joueur?.posteDetail ?? "");

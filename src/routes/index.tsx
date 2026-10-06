@@ -202,7 +202,7 @@ function Accueil() {
       </Section>
 
       {/* Résultats & prochains matchs */}
-      <section className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:px-6 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 py-8 sm:px-6 lg:grid-cols-2 [&>*]:min-w-0">
         <div className="glass rounded-2xl p-5">
           <h2 className="display-title mb-2 text-2xl">Derniers résultats</h2>
           {resultats.map((m) => (

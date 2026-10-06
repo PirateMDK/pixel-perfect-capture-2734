@@ -1,3 +1,4 @@
+import { ReportButton } from "@/components/fbn/Dialogs";
 import { useState } from "react";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { PublicLayout } from "@/components/layout/PublicLayout";
@@ -55,6 +56,7 @@ function EquipePage() {
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="display-title text-3xl sm:text-4xl">{team.nom}</h1>
+              <div className="mt-3"><ReportButton cible={team.nom} typeCible="Équipe" /></div>
               {team.verifie && <Chip className="border-primary/40 bg-primary/15 text-primary">Vérifiée</Chip>}
             </div>
             <p className="mt-1 text-sm text-muted-foreground">{team.commune} · {team.arrondissement} · {team.departement}</p>

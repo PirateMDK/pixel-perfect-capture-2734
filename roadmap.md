@@ -6,4 +6,4 @@
 - [x] Auth (connexion, inscription) + espaces équipe/organisateur/recruteur/admin
 - [x] Analyse IA recruteur, notifications, revue sécurité
 - [ ] Contrôle d'accès réel aux espaces (bloqué : nécessite connexion réelle via Lovable Cloud)
-- [ ] Clôture frontend V1 (brief PROMPT_FINAL) : catégories, postes, admin, cohérence, responsive
+- [x] Clôture frontend V1 (18 points du brief)

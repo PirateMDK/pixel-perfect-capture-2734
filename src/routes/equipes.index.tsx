@@ -79,7 +79,7 @@ function EquipesPage() {
         </div>
         <div className="mt-4">
           {visibles.length === 0 ? (
-            <EmptyState />
+            <EmptyState titre="Aucune équipe trouvée" />
           ) : vue === "cartes" ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {visibles.map((t) => <TeamCard key={t.id} team={t} />)}
